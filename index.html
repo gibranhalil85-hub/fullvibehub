@@ -10,7 +10,6 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      /* Mencegah teks tersorot/di-highlight sembarangan */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -29,12 +28,10 @@
 
     .container {
       width: 100%;
-      /* Penyesuaian otomatis: Lebih lebar di PC/Laptop, tetap pas di HP */
       max-width: 600px;
       text-align: center;
     }
 
-    /* Screen State Management */
     .screen {
       display: none;
       width: 100%;
@@ -84,7 +81,6 @@
       transform: scale(0.98);
     }
 
-    /* Loading Overlay */
     .loading-box {
       display: none;
       margin-top: 25px;
@@ -128,7 +124,6 @@
       text-transform: lowercase;
     }
 
-    /* Styling Iklan Native */
     .ads-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -149,7 +144,6 @@
       text-align: left;
     }
 
-    /* Video Frame Container - Responsif PC & HP */
     .video-container {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -166,7 +160,6 @@
       object-fit: contain;
     }
 
-    /* Full Version Button */
     .btn-fullversion {
       display: block;
       width: 100%;
@@ -215,21 +208,18 @@
     <!-- 2. HALAMAN UTAMA / PEMUTAR VIDEO -->
     <div id="screen-main" class="screen">
       
-      <!-- Nama Halaman -->
       <div class="header-zone">
         <div class="brand-name">VIBE ZONE HUB</div>
         <div class="brand-sub">watch trending viral video every day.</div>
       </div>
 
-      <!-- NATIVE BANNER ABOVE VIDEO -->
+      <!-- NATIVE BANNER ABOVE VIDEO (Dimuat Dinamis) -->
       <div class="ads-card">
         <div class="ads-label">Recommended Videos</div>
-        <div style="text-align:center;">
-          <script async="async" data-cfasync="false" src="//jj.cooleyshivery.com/t6BIHHqPVYvEPloTp/158394" type="text/javascript"></script>
-        </div>
+        <div style="text-align:center;" id="ad-slot-1"></div>
       </div>
 
-      <!-- Pemutar Video (Tanpa Autoplay) -->
+      <!-- Pemutar Video -->
       <div class="video-container">
         <video id="videy-player" controls playsinline preload="metadata">
           <source id="videy-source" src="" type="video/mp4">
@@ -237,15 +227,12 @@
         </video>
       </div>
 
-      <!-- NATIVE BANNER BELOW VIDEO -->
+      <!-- NATIVE BANNER BELOW VIDEO (Dimuat Dinamis) -->
       <div class="ads-card">
         <div class="ads-label">Recommended Videos</div>
-        <div style="text-align:center;">
-          <script async="async" data-cfasync="false" src="//af.bundleunum.com/t9FYeP0oay2cRrF/151124" type="text/javascript"></script>
-        </div>
+        <div style="text-align:center;" id="ad-slot-2"></div>
       </div>
 
-      <!-- Tombol Full Version -->
       <a href="https://www.facebook.com/groups/foundyourgirl" id="btn-full" class="btn-fullversion" target="_blank">
         🔥 WATCH FULL VERSION (HD)
       </a>
@@ -258,25 +245,15 @@
   </div>
 
   <script>
-    // --- FITUR ANTI KLIK KANAN & INSPECT ELEMENT ---
-    // Mencegah Klik Kanan
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    // Mencegah Shortcut Keyboard (F12, Ctrl+Shift+I, Ctrl+U, dll)
+    // Anti Klik Kanan & Inspect Element
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
     document.addEventListener('keydown', function(e) {
-      if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I / J
-        (e.ctrlKey && e.keyCode === 85) // Ctrl+U (View Source)
-      ) {
+      if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
         e.preventDefault();
         return false;
       }
     });
 
-    // --- LOGIKA PEMUTAR VIDEO & PARAMETER URL ---
     const DEFAULT_VIDEY_ID = "c89sL2uO"; 
     const FULL_VERSION_URL = "https://example.com"; 
 
@@ -286,10 +263,9 @@
     const videoSource = document.getElementById('videy-source');
     videoSource.src = `https://cdn.videy.co/${videyId}.mp4`;
     document.getElementById('videy-player').load();
-
     document.getElementById('btn-full').href = FULL_VERSION_URL;
 
-    // Transisi dari Halaman Pembuka ke Utama (Jeda 3 Detik, Tanpa Autoplay)
+    // Transisi dengan Jeda 3 Detik + Memuat Iklan Secara Dinamis
     function triggerLoading() {
       document.getElementById('btn-start').style.display = 'none';
       document.getElementById('loading-box').style.display = 'block';
@@ -297,8 +273,32 @@
       setTimeout(function() {
         document.getElementById('screen-landing').classList.remove('active');
         document.getElementById('screen-main').classList.add('active');
-        // Video tidak diputar otomatis, menunggu pengguna menekan tombol Play secara manual.
+
+        // PANGGIL SCRIPT IKLAN KETIKA HALAMAN UTAMA SUDAH MUNCUL
+        loadAds();
       }, 3000); 
+    }
+
+    function loadAds() {
+      // Slot Iklan 1 (Atas Video)
+      const slot1 = document.getElementById('ad-slot-1');
+      if (slot1.innerHTML === "") {
+        const s1 = document.createElement('script');
+        s1.async = true;
+        s1.dataset.cfasync = "false";
+        s1.src = "https://jj.cooleyshivery.com/t6BIHHqPVYvEPloTp/158394";
+        slot1.appendChild(s1);
+      }
+
+      // Slot Iklan 2 (Bawah Video)
+      const slot2 = document.getElementById('ad-slot-2');
+      if (slot2.innerHTML === "") {
+        const s2 = document.createElement('script');
+        s2.async = true;
+        s2.dataset.cfasync = "false";
+        s2.src = "https://af.bundleunum.com/t9FYeP0oay2cRrF/151124";
+        slot2.appendChild(s2);
+      }
     }
   </script>
 
