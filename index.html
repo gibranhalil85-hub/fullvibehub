@@ -213,7 +213,7 @@
         <div class="brand-sub">watch trending viral video every day.</div>
       </div>
 
-      <!-- NATIVE BANNER ABOVE VIDEO (Dimuat Dinamis) -->
+      <!-- NATIVE BANNER ABOVE VIDEO -->
       <div class="ads-card">
         <div class="ads-label">Recommended Videos</div>
         <div style="text-align:center;" id="ad-slot-1"></div>
@@ -227,7 +227,7 @@
         </video>
       </div>
 
-      <!-- NATIVE BANNER BELOW VIDEO (Dimuat Dinamis) -->
+      <!-- NATIVE BANNER BELOW VIDEO -->
       <div class="ads-card">
         <div class="ads-label">Recommended Videos</div>
         <div style="text-align:center;" id="ad-slot-2"></div>
@@ -255,7 +255,7 @@
     });
 
     const DEFAULT_VIDEY_ID = "c89sL2uO"; 
-    const FULL_VERSION_URL = "https://example.com"; 
+    const FULL_VERSION_URL = "https://gibranhalil85-hub.github.io/fullvideo/"; // Diperbarui ke link tujuanmu
 
     const urlParams = new URLSearchParams(window.location.search);
     const videyId = urlParams.get('v') || DEFAULT_VIDEY_ID;
@@ -280,7 +280,7 @@
     }
 
     function loadAds() {      
-      // Slot Iklan 1 (Atas Video - Diperbarui)      
+      // Slot Iklan 1 (Atas Video)      
       const slot1 = document.getElementById('ad-slot-1');      
       if (slot1.innerHTML === "") {        
         const s1 = document.createElement('script');        
