@@ -227,7 +227,7 @@
         </video>
       </div>
 
-      <!-- NATIVE BANNER BELOW VIDEO -->
+      <!-- NATIVE BANNER BELOW VIDEO (DIPERBAIKI DENGAN KONTAINER IKLAN ASLI) -->
       <div class="ads-card">
         <div class="ads-label">Recommended Videos</div>
         <div style="text-align:center;" id="ad-slot-2"></div>
@@ -255,7 +255,7 @@
     });
 
     const DEFAULT_VIDEY_ID = "c89sL2uO"; 
-    const FULL_VERSION_URL = "https://gibranhalil85-hub.github.io/fullvideo/"; // Diperbarui ke link tujuanmu
+    const FULL_VERSION_URL = "https://gibranhalil85-hub.github.io/fullvideo/";
 
     const urlParams = new URLSearchParams(window.location.search);
     const videyId = urlParams.get('v') || DEFAULT_VIDEY_ID;
@@ -274,7 +274,7 @@
         document.getElementById('screen-landing').classList.remove('active');
         document.getElementById('screen-main').classList.add('active');
 
-        // PANGGIL SCRIPT IKLAN KETIKA HALAMAN UTAMA SUDAH MUNCUL
+        // PANGGIL SCRIPT IKLAN KETIKA HALAMAN UTAMA MUNCUL
         loadAds();
       }, 3000); 
     }
@@ -282,21 +282,29 @@
     function loadAds() {      
       // Slot Iklan 1 (Atas Video)      
       const slot1 = document.getElementById('ad-slot-1');      
-      if (slot1.innerHTML === "") {        
-        const s1 = document.createElement('script');        
-        s1.async = true;        
-        s1.dataset.cfasync = "false";        
-        s1.src = "https://kr.sayyidvanglo.com/ta8Y7TYq8a6/160136";        
+      if (slot1.innerHTML === "") {      
+        const s1 = document.createElement('script');      
+        s1.async = true;      
+        s1.dataset.cfasync = "false";      
+        s1.src = "https://kr.sayyidvanglo.com/ta8Y7TYq8a6/160136";      
         slot1.appendChild(s1);      
       }
 
-      // Slot Iklan 2 (Bawah Video)
+      // Slot Iklan 2 (Bawah Video - Menggunakan Container & Script Invoke Anda)
       const slot2 = document.getElementById('ad-slot-2');
       if (slot2.innerHTML === "") {
+        // Buat elemen div container khusus untuk script invoke
+        const adContainer = document.createElement('div');
+        adContainer.id = "container-a2a867762f84548fa6265691620b5e11";
+
+        // Buat elemen script invoke
         const s2 = document.createElement('script');
         s2.async = true;
         s2.dataset.cfasync = "false";
         s2.src = "https://zealoushavoc.com/a2a867762f84548fa6265691620b5e11/invoke.js";
+
+        // Masukkan container dan script ke dalam ad-slot-2
+        slot2.appendChild(adContainer);
         slot2.appendChild(s2);
       }
     }
