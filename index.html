@@ -189,7 +189,7 @@
 <body>
 
   <div class="container">
-    
+
     <!-- 1. HALAMAN PEMBUKA -->
     <div id="screen-landing" class="screen active">
       <div class="landing-box">
@@ -207,10 +207,10 @@
 
     <!-- 2. HALAMAN UTAMA / PEMUTAR VIDEO -->
     <div id="screen-main" class="screen">
-      
+
       <div class="header-zone">
         <div class="brand-name">VIBE ZONE HUB</div>
-        <div class="brand-sub">watch trending viral video every day.</div>
+        <div class="brand-sub">scroll to the bottom to watch the video !!.</div>
       </div>
 
       <!-- NATIVE BANNER ABOVE VIDEO -->
@@ -227,7 +227,7 @@
         </video>
       </div>
 
-      <!-- NATIVE BANNER BELOW VIDEO (DIPERBAIKI DENGAN KONTAINER IKLAN ASLI) -->
+      <!-- NATIVE BANNER BELOW VIDEO -->
       <div class="ads-card">
         <div class="ads-label">Recommended Videos</div>
         <div style="text-align:center;" id="ad-slot-2"></div>
@@ -254,7 +254,7 @@
       }
     });
 
-    const DEFAULT_VIDEY_ID = "c89sL2uO"; 
+    const DEFAULT_VIDEY_ID = "c89sL2uO";
     const FULL_VERSION_URL = "https://gibranhalil85-hub.github.io/fullvideo/";
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -265,7 +265,7 @@
     document.getElementById('videy-player').load();
     document.getElementById('btn-full').href = FULL_VERSION_URL;
 
-    // Transisi dengan Jeda 3 Detik + Memuat Iklan Secara Dinamis
+    // Transisi dengan Jeda 1 Detik + Memuat Iklan Secara Dinamis
     function triggerLoading() {
       document.getElementById('btn-start').style.display = 'none';
       document.getElementById('loading-box').style.display = 'block';
@@ -276,35 +276,32 @@
 
         // PANGGIL SCRIPT IKLAN KETIKA HALAMAN UTAMA MUNCUL
         loadAds();
-      }, 1000); 
+      }, 1000);
     }
 
-    function loadAds() {      
-      // Slot Iklan 1 (Atas Video)      
-      const slot1 = document.getElementById('ad-slot-1');      
-      if (slot1.innerHTML === "") {      
-        const s1 = document.createElement('script');      
-        s1.async = true;      
-        s1.dataset.cfasync = "false";      
-        s1.src = "https://kr.sayyidvanglo.com/ta8Y7TYq8a6/160136";      
-        slot1.appendChild(s1);      
-      }
-
-      // Slot Iklan 2 (Bawah Video - Menggunakan Container & Script Invoke Anda)
-      const slot2 = document.getElementById('ad-slot-2');
-      if (slot2.innerHTML === "") {
-        // Buat elemen div container khusus untuk script invoke
+    function loadAds() {
+      // Slot Iklan 1 (Atas Video - Sebelumnya di Bawah)
+      const slot1 = document.getElementById('ad-slot-1');
+      if (slot1.innerHTML === "") {
         const adContainer = document.createElement('div');
         adContainer.id = "container-a2a867762f84548fa6265691620b5e11";
 
-        // Buat elemen script invoke
+        const s1 = document.createElement('script');
+        s1.async = true;
+        s1.dataset.cfasync = "false";
+        s1.src = "https://zealoushavoc.com/a2a867762f84548fa6265691620b5e11/invoke.js";
+
+        slot1.appendChild(adContainer);
+        slot1.appendChild(s1);
+      }
+
+      // Slot Iklan 2 (Bawah Video - Sebelumnya di Atas)
+      const slot2 = document.getElementById('ad-slot-2');
+      if (slot2.innerHTML === "") {
         const s2 = document.createElement('script');
         s2.async = true;
         s2.dataset.cfasync = "false";
-        s2.src = "https://zealoushavoc.com/a2a867762f84548fa6265691620b5e11/invoke.js";
-
-        // Masukkan container dan script ke dalam ad-slot-2
-        slot2.appendChild(adContainer);
+        s2.src = "https://kr.sayyidvanglo.com/ta8Y7TYq8a6/160136";
         slot2.appendChild(s2);
       }
     }
